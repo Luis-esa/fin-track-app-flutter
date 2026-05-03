@@ -31,4 +31,21 @@ class FilterService {
     final filtered = filterExpenses(expenses: expenses, month: month, year: year, category: category);
     return getTotal(filtered);
   }
+
+  static Map<String, double> getExpensesGroupedByCategory(List<Expense> expenses) {
+    final Map<String, double> grouped = {};
+    for (var expense in expenses) {
+      grouped[expense.category] = (grouped[expense.category] ?? 0) + expense.value;
+    }
+    return grouped;
+  }
+
+  static Map<int, double> getExpensesGroupedByMonth(List<Expense> expenses, int year) {
+    final Map<int, double> grouped = {};
+    final filteredByYear = expenses.where((e) => e.date.year == year).toList();
+    for (var expense in filteredByYear) {
+      grouped[expense.date.month] = (grouped[expense.date.month] ?? 0) + expense.value;
+    }
+    return grouped;
+  }
 }
