@@ -40,8 +40,8 @@ Future<void> _pickDate() async {
   final picked = await showDatePicker(
     context: context,
     initialDate: _selectedDate,
-    firstDate: DateTime(2000),
-    lastDate: DateTime.now(),
+    firstDate: DateTime(2010),
+    lastDate: DateTime(2040),
   );
   if (picked != null) setState(() => _selectedDate = picked);
 }
@@ -117,7 +117,7 @@ Future<void> _pickDate() async {
               ),
               const SizedBox(height: AppConstants.paddingMedium),
               DropdownButtonFormField<String>(
-                value: _selectedCategory,
+                initialValue: _selectedCategory,
                 decoration: const InputDecoration(
                   labelText: 'Categoria',
                   border: OutlineInputBorder(),

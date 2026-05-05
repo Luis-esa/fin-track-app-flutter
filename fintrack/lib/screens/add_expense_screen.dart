@@ -24,8 +24,8 @@ Future<void> _pickDate() async {
   final picked = await showDatePicker(
     context: context,
     initialDate: _selectedDate,
-    firstDate: DateTime(2000),
-    lastDate: DateTime.now(),
+    firstDate: DateTime(2010),
+    lastDate: DateTime(2040),
   );
   if (picked != null) setState(() => _selectedDate = picked);
 }

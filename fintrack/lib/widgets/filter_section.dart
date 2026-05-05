@@ -10,6 +10,9 @@ class FilterSection extends StatelessWidget {
   final ValueChanged<int?> onYearChanged;
   final ValueChanged<String?> onCategoryChanged;
 
+
+
+  
   const FilterSection({
     super.key,
     required this.selectedMonth,
@@ -20,8 +23,11 @@ class FilterSection extends StatelessWidget {
     required this.onCategoryChanged,
   });
 
+  
+
   @override
   Widget build(BuildContext context) {
+    const meses = ['Jan', 'Fev', 'Mar', 'Abr','Mai', 'Jun', 'Jul', 'Ago','Set', 'Out', 'Nov', 'Dez'];
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingMedium, vertical: 8.0),
       decoration: BoxDecoration(
@@ -47,7 +53,7 @@ class FilterSection extends StatelessWidget {
                   const DropdownMenuItem(value: null, child: Text('Todos', style: TextStyle(fontSize: 14))),
                   ...List.generate(12, (index) => DropdownMenuItem(
                         value: index + 1,
-                        child: Text((index + 1).toString().padLeft(2, '0'), style: const TextStyle(fontSize: 14)),
+                        child: Text(meses[index]), 
                       )),
                 ],
                 onChanged: onMonthChanged,
@@ -65,9 +71,9 @@ class FilterSection extends StatelessWidget {
                 hint: const Text('Ano', style: TextStyle(fontSize: 14)),
                 items: [
                   const DropdownMenuItem(value: null, child: Text('Todos', style: TextStyle(fontSize: 14))),
-                  ...List.generate(10, (index) => DropdownMenuItem(
-                        value: 2024 + index,
-                        child: Text('${2024 + index}', style: const TextStyle(fontSize: 14)),
+                  ...List.generate(31, (index) => DropdownMenuItem(
+                        value: 2010 + index,
+                        child: Text('${2010 + index}', style: const TextStyle(fontSize: 14)),
                       )),
                 ],
                 onChanged: onYearChanged,
@@ -84,6 +90,7 @@ class FilterSection extends StatelessWidget {
                 isExpanded: true,
                 value: selectedCategory,
                 hint: const Text('Categoria', style: TextStyle(fontSize: 14)),
+                
                 items: [
                   const DropdownMenuItem(value: null, child: Text('Todas', style: TextStyle(fontSize: 14))),
                   ...CategoryManager.categories.map((c) => DropdownMenuItem(
