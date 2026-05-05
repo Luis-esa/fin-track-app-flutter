@@ -20,7 +20,6 @@ class ChartBar extends StatelessWidget {
       if (v > maxY) maxY = v;
     }
     
-    // Add 20% padding to maxY
     maxY = maxY * 1.2;
     if (maxY == 0) maxY = 100;
 

@@ -9,6 +9,7 @@ import '../widgets/filter_section.dart';
 import '../widgets/chart_pie.dart';
 import '../widgets/chart_bar.dart';
 import 'add_expense_screen.dart';
+import '../widgets/edit_expense_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,6 +33,19 @@ class _HomeScreenState extends State<HomeScreen> {
       category: _selectedCategory,
     );
   }
+Future<void> _editExpense(Expense expense) async {
+  final edited = await showDialog<Expense>(
+    context: context,
+    builder: (ctx) => EditExpenseDialog(expense: expense),
+  );
+
+  if (edited != null) {
+    setState(() {
+      final index = _expenses.indexWhere((e) => e.id == edited.id);
+      if (index != -1) _expenses[index] = edited;
+    });
+  }
+}
 
   double get _filteredTotal {
     return FilterService.getTotal(_filteredExpenses);
@@ -149,6 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return ExpenseItem(
                       expense: expense,
                       onDelete: () => _removeExpense(expense.id),
+                       onEdit: () => _editExpense(expense),
                     );
                   },
                   childCount: _filteredExpenses.length,

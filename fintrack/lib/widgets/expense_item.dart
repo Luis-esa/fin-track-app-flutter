@@ -7,11 +7,13 @@ import 'delete_button.dart';
 class ExpenseItem extends StatelessWidget {
   final Expense expense;
   final VoidCallback onDelete;
+  final VoidCallback onEdit;
 
   const ExpenseItem({
     super.key,
     required this.expense,
     required this.onDelete,
+    required this.onEdit,
   });
 
   String get _formattedValue {
@@ -60,17 +62,22 @@ class ExpenseItem extends StatelessWidget {
               fontSize: 12.0,
               color: Colors.grey.shade600,
             ),
+            const SizedBox(height: 4.0),
+            CustomText(
+              _formattedValue,
+              fontWeight: FontWeight.bold,
+              color: Colors.green.shade700,
+              fontSize: 15.0,
+            ),
           ],
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomText(
-              _formattedValue,
-              fontWeight: FontWeight.bold,
-              color: Colors.green.shade700,
+            IconButton(
+              icon: const Icon(Icons.edit, color: AppConstants.primaryColor),
+              onPressed: onEdit,
             ),
-            const SizedBox(width: 8.0),
             DeleteButton(onPressed: onDelete),
           ],
         ),

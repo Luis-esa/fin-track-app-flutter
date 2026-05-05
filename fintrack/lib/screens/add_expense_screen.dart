@@ -18,7 +18,17 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String _selectedCategory = CategoryManager.categories.first;
+  DateTime _selectedDate = DateTime.now();
 
+Future<void> _pickDate() async {
+  final picked = await showDatePicker(
+    context: context,
+    initialDate: _selectedDate,
+    firstDate: DateTime(2000),
+    lastDate: DateTime.now(),
+  );
+  if (picked != null) setState(() => _selectedDate = picked);
+}
   void _saveExpense() {
     if (_formKey.currentState!.validate()) {
       final title = _titleController.text;
@@ -36,7 +46,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         title: title,
         value: value,
-        date: DateTime.now(),
+        date: _selectedDate,
         category: _selectedCategory,
       );
 
@@ -139,6 +149,22 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   return null;
                 },
               ),
+              const SizedBox(height: AppConstants.paddingMedium),
+              
+                GestureDetector(
+                  onTap: _pickDate,
+                  child: InputDecorator(
+                  decoration: const InputDecoration(
+                  labelText: 'Data',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.calendar_today),
+      ),
+                  child: Text(
+                  '${_selectedDate.day.toString().padLeft(2, '0')}/${_selectedDate.month.toString().padLeft(2, '0')}/${_selectedDate.year}',
+    ),
+            
+  ),
+),
               const SizedBox(height: AppConstants.paddingMedium),
               Row(
                 children: [
